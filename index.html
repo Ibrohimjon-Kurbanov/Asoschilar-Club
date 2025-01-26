@@ -260,12 +260,12 @@
         <h2 class="form-title">
           Qo‘shiling va o‘z biznesingizni rivojlantiring!
         </h2>
-        <form name="Ibrohimjon" action="" class="form-row">
+        <form name="Ibrohimjon1" action="" class="form-row">
           <div class="form-col">
             <label class="form-col-title" for="ism">Ismingiz</label>
             <input
-              name="name"
               required
+              name="name"
               class="form-col-input"
               id="ism"
               type="text"
@@ -277,8 +277,8 @@
               >Telefon raqamingiz</label
             >
             <input
-              name="tel"
               required
+              name="tel"
               class="form-col-input"
               id="telefon"
               type="tel"
@@ -814,30 +814,36 @@
         <h2 class="form-title">
           Qo‘shiling va o‘z biznesingizni rivojlantiring!
         </h2>
-        <form name="Ibrohimjon" class="form-row">
+        <form name="Ibrohimjon2" action="" class="form-row">
           <div class="form-col">
             <label class="form-col-title" for="ism">Ismingiz</label>
             <input
-              name="name"
               required
+              name="name"
               class="form-col-input"
               id="ism"
               type="text"
               placeholder="Ismingiz kiriting"
             />
+            <small class="error-message" id="name-error"
+              >Ism faqat harflardan iborat bo'lishi kerak.</small
+            >
           </div>
           <div class="form-col">
             <label class="form-col-title" for="telefon"
               >Telefon raqamingiz</label
             >
             <input
-              name="tel"
               required
+              name="tel"
               class="form-col-input"
               id="telefon"
               type="tel"
               placeholder="+998"
             />
+            <small class="error-message" id="phone-error"
+              >Telefon raqamini to'g'ri kiriting: +998 XX XXX XX XX</small
+            >
           </div>
           <div class="form-col">
             <button class="hero-link form-col-btn">
@@ -901,20 +907,29 @@
     <script>
       const scriptURL =
         "https://script.google.com/macros/s/AKfycbx4r26bBZ9p60EW7LbWMsj70vsIksDM-lsDDsNYuPcQSqvtiz-N8i4GcQIqgyd5qZkG/exec";
-      const form = document.forms["Ibrohimjon"];
+
       let loader = document.querySelector(".loader");
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        loader.classList.add("active");
-        fetch(scriptURL, { method: "POST", body: new FormData(form) })
-          .then((response) => {
-            loader.classList.remove("active");
-            alert("Ma'lumot yuborildi");
-            form.reset();
-            console.log("Success!", response);
-          })
-          .catch((error) => console.error("Error!", error.message));
-      });
+
+      function handleFormSubmit(form) {
+        return (e) => {
+          e.preventDefault();
+          loader.classList.add("active");
+          fetch(scriptURL, { method: "POST", body: new FormData(form) })
+            .then((response) => {
+              loader.classList.remove("active");
+              alert("Ma'lumot yuborildi");
+              form.reset();
+              console.log("Success!", response);
+            })
+            .catch((error) => console.error("Error!", error.message));
+        };
+      }
+
+      const form1 = document.forms["Ibrohimjon1"];
+      const form2 = document.forms["Ibrohimjon2"];
+
+      form1.addEventListener("submit", handleFormSubmit(form1));
+      form2.addEventListener("submit", handleFormSubmit(form2));
     </script>
     <script src="./js/app.js"></script>
   </body>

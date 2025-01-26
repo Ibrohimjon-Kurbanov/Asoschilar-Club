@@ -1831,3 +1831,9 @@ body.active {
     transform: rotate(360deg);
   }
 }
+.error-message {
+  color: red;
+  font-size: 12px;
+  font-weight: 400;
+  display: none;
+}
